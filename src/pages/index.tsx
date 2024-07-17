@@ -1,6 +1,6 @@
 "use client"
 
-import { getMe } from "@/api";
+import { getMe } from "../api";
 import { useEffect } from "react";
 
 export default function Home() {
