@@ -3,6 +3,8 @@
 export default function Home() {
 
   return (
-      <h1>Hi</h1>
+    <div className="screen">
+      <h1>Welcome</h1>
+    </div>
   );
 }
