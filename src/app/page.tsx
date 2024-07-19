@@ -1,4 +1,4 @@
-import Wallet from "@/components/Wallet/Wallet";
+import Wallet from "../../src/components/Wallet/Wallet";
 
 import "./page.scss";
 
