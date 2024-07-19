@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Web3 from 'web3';
 
 interface Window {
@@ -10,6 +10,15 @@ interface Window {
 const Wallet: React.FC = () => {
   const [account, setAccount] = useState<any>(null);
   const [balance, setBalance] = useState<any>(null);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+  const [message, setMessage] = useState<string>("");
+
+  useEffect(() => {
+    // Определить, использует ли пользователь мобильное устройство
+    const userAgent = navigator.userAgent.toLowerCase();
+    const isMobileDevice = /android|iphone|ipad|ipod/.test(userAgent);
+    setIsMobile(isMobileDevice);
+  }, []);
 
   const connectWallet = async () => {
     if (window.ethereum && window.ethereum.request) {
@@ -26,12 +35,16 @@ const Wallet: React.FC = () => {
         await web3.eth.getBalance(address)
             .then((balance: any) => setBalance(web3.utils.fromWei(balance, 'ether')))
             .catch(error => console.log(error));
+    } else {
+        setMessage("You have no MetaMask app on your device")
     }
   };
 
   return (
     <div>
       <button onClick={connectWallet}>Connect MetaMask</button>
+      {message && <div>{message}</div>}
+      {<div>Is mobile: {`${isMobile}`}</div>}
       {account && <div>Account: {account}</div>}
       {balance && <div>Balance: {balance} ETH</div>}
     </div>
